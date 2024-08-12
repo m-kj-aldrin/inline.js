@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>inline</title>
+        <script src="inline.js"></script>
+    </head>
+    <body>
+        <script>
+            s().on("ping", (s, { detail }) => {
+                console.log("body ping", detail);
+            });
+        </script>
+
+        <div>
+            count: <span>0</span>
+
+            <script>
+                // s().on("ping", (s, e) => {
+                //     s.q("span").text((t) => +t + e.detail?.op);
+                //     e.detail.count = +s.text();
+                // });
+                s()
+                    .on("add", (s, e) => s.q("span").text((t) => +t + 1))
+                    .on("sub", (s, e) => s.q("span").text((t) => +t - 1))
+                    .on(
+                        "add sub",
+                        (s, e) => (e.detail.count = +s.q("span").text())
+                    );
+            </script>
+
+            <button data-action="add">add</button>
+            <button data-action="sub">sub</button>
+
+            <script>
+                s()
+                    .q("button")
+                    .on("click", (s, e, n) => n.send(n.attr("data-action")));
+            </script>
+        </div>
+    </body>
+</html>

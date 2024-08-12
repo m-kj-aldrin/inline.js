@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "target": "ES2019",
+        "lib": ["DOM", "ES2019", "DOM.Iterable"]
+    }
+}
